@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'sinatra'
+require 'tilt/erubis'
 require 'json'
 require 'yaml'
 require 'net/http'
