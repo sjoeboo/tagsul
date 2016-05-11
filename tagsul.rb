@@ -3,6 +3,11 @@
 require 'sinatra'
 require 'json'
 require 'yaml'
+require 'pp'
+
+
+consul_host=ARGV[0]
+
 
 get '/:tag' do
   tag=params[:tag]
@@ -11,7 +16,7 @@ get '/:tag' do
 
   services_with_tag=Array.new
   #Get all consul services
-  services=JSON.parse(`curl -s consul.service.consul.rc.hms.harvard.edu/v1/catalog/services`)
+  services=JSON.parse(`curl -s #{consul_host}/v1/catalog/services`)
   services.each do |service|
     if service[1].include?(tag)
       services_with_tag.push(service[0])
@@ -21,7 +26,7 @@ get '/:tag' do
 
   master_list=Array.new
   services_with_tag.each do |service|
-    service_info=JSON.parse(`curl -s consul.service.consul.rc.hms.harvard.edu/v1/catalog/service/#{service}?tag=#{tag}`)
+    service_info=JSON.parse(`curl -s #{consul_host}/v1/catalog/service/#{service}?tag=#{tag}`)
     #pp service_info
     nodes=Array.new
     ips=Array.new
