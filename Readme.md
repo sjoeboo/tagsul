@@ -19,3 +19,17 @@ I also wanted an excuse to play with `sinatra`, so this is a good case for it.
 
 Use
 ---
+
+As a plain old ruby script:
+
+```
+./tagsul <consul_server_hostname:port>
+```
+
+(port defaults to 80 BTW)
+
+As a docker container:
+
+```
+docker run -d -e CONSUL_HOST=<consul_server_hostname> -p PORT:4567 sjoeboo/tagsul
+```

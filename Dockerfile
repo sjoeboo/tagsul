@@ -7,7 +7,7 @@ RUN mkdir /tagsul
 ADD Gemfile /tagsul/
 ADD tagsul /tagsul/
 ADD run.sh /tagsul/
-ADD views /tagsul/
+ADD views /tagsul/views
 
 RUN cd /tagsul && bundle install
 
