@@ -1,12 +1,13 @@
 FROM centos:7
 
-RUN yum -y update && yum install rubygems rubygem-bundler && yum clean all
+RUN yum -y update && yum -y install rubygems rubygem-bundler && yum clean all
 
 RUN mkdir /tagsul
 
 ADD Gemfile /tagsul/
 ADD tagsul /tagsul/
 ADD run.sh /tagsul/
+ADD views /tagsul/
 
 RUN cd /tagsul && bundle install
 

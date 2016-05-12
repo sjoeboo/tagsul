@@ -1,14 +1,13 @@
 #!/usr/bin/env ruby
 
 require 'sinatra'
-require 'tilt/erubis'
 require 'json'
 require 'yaml'
 require 'net/http'
 require 'uri'
 
 consul_host=ARGV[0]
-
+set :environment, :production
 
 get '/:tag' do
   tag=params[:tag]
@@ -44,14 +43,6 @@ get '/:tag' do
   elsif output == 'yaml'
     master_list.to_yaml
   elsif output == nil or output == ""
-    template = "
-    <% master_list.each do |item| -%>
-      <b>Service:</b> <%=item[:name] %> <br />
-      <b>Port:</b> <%=item[:port] %> <br />
-      <b>Nodes:</b> <%= item[:nodes] %> <br />
-      <b>IPs:</b> <%= item[:ips] %> <br /><br /><br />
-      <% end -%>
-      "
-      erb template, :locals => {:master_list => master_list}
+    erb :index, :locals => {:master_list => master_list}
   end
 end

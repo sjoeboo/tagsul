@@ -1,0 +1,6 @@
+<% master_list.each do |item| -%>
+<b>Service:</b> <%=item[:name] %> <br />
+<b>Port:</b> <%=item[:port] %> <br />
+<b>Nodes:</b> <%= item[:nodes] %> <br />
+<b>IPs:</b> <%= item[:ips] %> <br /><br />
+<% end -%>
