@@ -31,7 +31,12 @@ get '/:tag' do
     ips=Array.new
     port=service_info[0]["ServicePort"]
     service_info.each do |i|
-      ips.push(i["Address"])
+      #If the service has a specific address listed, use that, otherwise, use the agent address.
+      if i["ServiceAddress"] != ""
+        ips.push(i["ServiceAddress"])
+      else
+        ips.push(i["Address"])
+      end
       nodes.push(i["Node"])
     end
     service_obj={:name=>service, :port=>port, :nodes=>nodes, :ips=>ips}
