@@ -29,9 +29,9 @@ get '/tags' do
   elsif output == 'yaml'
     tags.to_yaml
   elsif output == nil or output == ""
-    erb :tags, :locals => {:tags => tags}
+    tags.to_s
   end
-  #$tags.uniq.sort.to_json
+  
 end
 
 get '/:tag' do
