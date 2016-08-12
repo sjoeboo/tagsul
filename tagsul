@@ -25,13 +25,14 @@ get '/tags' do
   end
   tags = tags.uniq.sort
   if output == 'json'
-    tags.to_json
+    JSON.generate(tags)
+    #tags.to_json
   elsif output == 'yaml'
     tags.to_yaml
   elsif output == nil or output == ""
     tags.to_s
   end
-  
+
 end
 
 get '/:tag' do
@@ -69,7 +70,8 @@ get '/:tag' do
   end
 
   if output == 'json'
-    master_list.to_json
+    JSON.generate(master_list)
+    #master_list.to_json
   elsif output == 'yaml'
     master_list.to_yaml
   elsif output == nil or output == ""
