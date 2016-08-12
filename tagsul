@@ -9,6 +9,31 @@ require 'uri'
 consul_host=ARGV[0]
 set :environment, :production
 
+get '/' do
+  erb :readme
+end
+
+get '/tags' do
+  output=params[:output]
+  "Getting all tags"
+  services=JSON.parse(Net::HTTP.get_response(URI.parse("http://#{consul_host}/v1/catalog/services")).body)
+  tags = Array.new
+  services.each do |service|
+    service[1].each do |tag|
+      tags.push(tag)
+    end
+  end
+  tags = tags.uniq.sort
+  if output == 'json'
+    tags.to_json
+  elsif output == 'yaml'
+    tags.to_yaml
+  elsif output == nil or output == ""
+    erb :tags, :locals => {:tags => tags}
+  end
+  #$tags.uniq.sort.to_json
+end
+
 get '/:tag' do
   tag=params[:tag]
   output=params[:output]
